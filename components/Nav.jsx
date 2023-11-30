@@ -7,9 +7,12 @@ import { useState, useEffect } from 'react'
 import {signIn, signOut, useSession,getProviders} from 'next-auth/react'
 
 
+
+
 const Nav = () => {
     const userLoggedIn=true
     const[providers,setproviders]=useState(null)
+    const{data:session}=useSession()
     const[toggleDropDown,settoggleDropDown]=useState(false)
     useEffect(()=>{
          const setProvider=async()=>{
@@ -18,7 +21,47 @@ const Nav = () => {
          }
          setProvider()
     },[])
-    
+
+
+  async function request(){
+   const user={
+      firstname:'nk daddr',
+      age:Math.random()
+   }
+   try{
+      const res =await fetch('/api/users',{
+        method:'POST',
+        body:JSON.stringify(user),
+        headers:{'content-type':'application/json'}
+     })
+const data=await res.json()
+     console.log(data)
+     if(!res.ok){
+throw new Error('server error')
+     }
+   }catch(error){
+      console.log(error.message)
+   }
+   // console.log(await res.json())
+  }
+
+ 
+
+   useEffect(()=>{
+//   async function request(){
+//    const user={
+//       name:'fynn'
+//    }
+//     const res=await fetch('http://localhost:3001/api/users',{
+//       method:'GET',
+     
+//     })
+//     console.log(await res.json())
+//   }
+
+
+//   request()
+   },[])    
   return (
     <nav className='flex-between w-full mb-16 pt-3'>
         <Link href='/' className='flex gap-2 flex-center'>
@@ -33,11 +76,14 @@ const Nav = () => {
         </Link>
         {/* Desktop Navigation */}
         <div className='sm:flex hidden'>
-         {userLoggedIn ?(
+         {session?.user ?(
             <div className='flex gap-3 md:gap-5'>
-<Link href='/create-prompt' className='black_btn'>
+<button onClick={request} className='black_btn'>
    Create Post
-</Link>
+</button>
+{/* <Link href='/create-prompt' onClick={request} className='black_btn'>
+   Create Post
+</Link> */}
 <button type='button' onClick={()=>signOut()} className='outline_btn'>
    Sign Out
 </button>
@@ -60,7 +106,7 @@ const Nav = () => {
         </div>
         {/* mobile Navigation */}
         <div className='sm:hidden flex relative'>
-          {userLoggedIn ? (
+          {session?.user ? (
           <div className='flex'>
             <Image src='/assets/images/logo.svg'
                   width={37}
