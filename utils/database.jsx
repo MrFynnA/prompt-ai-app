@@ -14,14 +14,13 @@ if(isConnected){
 try{
   await mongoose.connect(process.env.MONGODB_URI,{
 
-  dbName:"Bookstore",
-  useNewUrlParser:true,
-  useUnifiedTopology:true
+  dbName:"promptos",
+
   })
 
    isConnected=true
 }catch(error){
- console.log(error.message)
+ console.log(error.message+' cant connect to mongo')
 }
 
 

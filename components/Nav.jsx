@@ -5,6 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import {signIn, signOut, useSession,getProviders} from 'next-auth/react'
+import { useRouter } from 'next/navigation';
 
 
 
@@ -13,6 +14,7 @@ const Nav = () => {
     const userLoggedIn=true
     const[providers,setproviders]=useState(null)
     const{data:session}=useSession()
+    const router=useRouter()
     const[toggleDropDown,settoggleDropDown]=useState(false)
     useEffect(()=>{
          const setProvider=async()=>{
@@ -61,7 +63,11 @@ throw new Error('server error')
 
 
 //   request()
-   },[])    
+   },[])   
+
+   // alert(session?.user.email)
+   // console.log(session?.user.email)
+   // console.log(session?.expires)
   return (
     <nav className='flex-between w-full mb-16 pt-3'>
         <Link href='/' className='flex gap-2 flex-center'>
@@ -78,28 +84,30 @@ throw new Error('server error')
         <div className='sm:flex hidden'>
          {session?.user ?(
             <div className='flex gap-3 md:gap-5'>
-<button onClick={request} className='black_btn'>
+<button onClick={()=>router.push('/create-prompt')} className='black_btn'>
    Create Post
 </button>
 {/* <Link href='/create-prompt' onClick={request} className='black_btn'>
    Create Post
 </Link> */}
-<button type='button' onClick={()=>signOut()} className='outline_btn'>
+<button type='button' onClick={()=>signOut({redirect:false})} className='outline_btn'>
    Sign Out
 </button>
 <Link href='/profile'>
-   <Image src='/assets/images/logo.svg'
+   <Image src={session?.user?.image}
    width={37}
    height={37}
    className='rounded-full'
    alt='profile'
    />
 </Link>
+{/* <img src={session?.user.image} width={37} height={37} className='rounded-full' alt='profile'></img> */}
             </div>
          ):(
             <> 
+            
            {providers && Object.values(providers).map(providers=>(
-            <button key={providers.name} type='button' onClick={()=>signIn(providers.id)}>Sign In</button>
+            <button key={providers.name} className='black_btn' type='button' onClick={()=>signIn(providers.id)}>Sign In</button>
            ))}
             </>
          )}
@@ -108,7 +116,7 @@ throw new Error('server error')
         <div className='sm:hidden flex relative'>
           {session?.user ? (
           <div className='flex'>
-            <Image src='/assets/images/logo.svg'
+            <Image src={session?.user?.image}
                   width={37}
                   height={37}
                   className='rounded-full'
@@ -121,7 +129,7 @@ throw new Error('server error')
                         className='dropdown_link'
                         onClick={()=>settoggleDropDown(false)}
                         >Profile</Link>
-                        <Link href={'/profile'}
+                        <Link href={'/create-prompt'}
                         className='dropdown_link'
                         onClick={()=>settoggleDropDown(false)}
                         >Create Prompt</Link>
@@ -134,7 +142,7 @@ throw new Error('server error')
           </div>
           ):    <> 
           {providers && Object.values(providers).map(providers=>(
-           <button key={providers.name} type='button' onClick={()=>signIn(providers.id)}>Sign In</button>
+           <button key={providers.name} className='black_btn' type='button' onClick={()=>signIn(providers.id)}>Sign In</button>
           ))}
            </>
           
