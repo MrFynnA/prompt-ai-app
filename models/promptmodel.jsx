@@ -18,9 +18,9 @@ const promptSchema=new Schema({
 })
 
 
-const promptModel=models.prompt || model('prompt',promptSchema)
+const PromptModel=models.prompt || model('prompt',promptSchema)
 
-export default promptModel
+export default PromptModel
 
 //now mongoose and mongo db know how the prompts in our database should look like
 

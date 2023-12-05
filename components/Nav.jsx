@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import {signIn, signOut, useSession,getProviders} from 'next-auth/react'
 import { useRouter } from 'next/navigation';
+import { redirect } from 'next/navigation';
 
 
 
@@ -78,7 +79,7 @@ throw new Error('server error')
             height={30}
             className='object-contain'
             />
-            <p className='logo_text'>Promptos</p>
+            <p className='logo_text !font-inter'>Promptos</p>
         </Link>
         {/* Desktop Navigation */}
         <div className='sm:flex hidden'>
@@ -90,7 +91,10 @@ throw new Error('server error')
 {/* <Link href='/create-prompt' onClick={request} className='black_btn'>
    Create Post
 </Link> */}
-<button type='button' onClick={()=>signOut({redirect:false})} className='outline_btn'>
+<button type='button' onClick={()=>{signOut({redirect:false})
+router.push('/')
+
+}} className='outline_btn'>
    Sign Out
 </button>
 <Link href='/profile'>
