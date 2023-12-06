@@ -8,25 +8,36 @@ import PromptcardList from './PromptcardList'
 const Feed = () => {
   const {register,handleSubmit,formState,reset}=useForm()
   const [posts,setPosts]=useState([])
-  console.log(posts)
-
-  useEffect(()=>{
-      const fetchPrompts=async()=>{
-
-        try{
-
-          const res= await fetch('/api/prompt')
-          const data=await res.json()
-          if(!res.ok){
-            throw new Error('could not get posts')
-          }
-          setPosts(data)
-        }catch(error){
-             console.log(error.message)
-        }
-         
-
+  const [promptsloading,setPromptsLoading]=useState(false)
+  const [refresh,setRefresh]=useState(false)
+  // console.log(posts)
+  const fetchPrompts=async()=>{
+    
+    try{
+      setPromptsLoading(true)
+      const res= await fetch('/api/prompt')
+      const data=await res.json()
+      if(!res.ok){
+        throw new Error('could not get posts')
       }
+      setPosts(data)
+    }catch(error){
+      console.log(error.message)
+    }finally{
+      setPromptsLoading(false)
+    }
+    
+    
+  }
+  const TriggerRefresh=()=>{
+    setRefresh(true)
+    fetchPrompts()
+    setTimeout(()=>{
+      setRefresh(false)
+    },5000)
+  }
+  useEffect(()=>{
+    
      fetchPrompts()
   
   },[])
@@ -38,6 +49,9 @@ const Feed = () => {
 
       <PromptcardList
       data={posts}
+      triggerRefresh={TriggerRefresh}
+      promptsloading={promptsloading}
+      refresh={refresh}
       handleTagClick={()=>{}}
       />
     </section>

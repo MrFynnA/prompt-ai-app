@@ -2,6 +2,7 @@ import { Inter } from 'next/font/google'
 import '@/styles/globals.css'
 import Nav from '@components/Nav'
 import Provider from '@components/Provider'
+import GotoTop from '@components/GotoTop'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
@@ -22,6 +23,7 @@ export default function RootLayout({ children }) {
              {children}
         </main>
         </Provider>
+        <GotoTop/>
       </body> 
     </html>
     )
