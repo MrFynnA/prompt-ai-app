@@ -4,7 +4,7 @@ import PromptModel from "@models/promptmodel"
 
 export async function POST(req){
     const data= await req.json()
-    console.log(data)
+    // console.log(data)
     // return new Response(JSON.stringify(data))
     try{
       await connectDB()

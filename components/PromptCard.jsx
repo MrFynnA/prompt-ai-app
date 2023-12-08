@@ -6,6 +6,8 @@ import { CheckIcon } from '@public/assets/icons/CheckedIcons'
 
 const PromptCard = (props) => {
   const {data,handleTagClick,handleEdit,handleDelete}=props
+  const{data:session}=useSession()
+  const pathName=usePathname()
   const[copied,setCopied]=useState('')
   const[copiedText,setCopiedText]=useState(false)
   const handleCopy=()=>{
@@ -44,10 +46,25 @@ const PromptCard = (props) => {
           src={'/assets/icons/copy.svg'}
           width={16}
           height={16}
+          alt='profile_image'
           />:<CheckIcon/>}
         </div>
       </div>
       <p className='my-4 font-satoshi text-sm text-gray-700'>{data.prompt}</p>
+      {session?.user.id===data?.creator._id && pathName==='/profile' &&(
+        <div className='mt-5 flex-center gap-2'>
+          <p className='font-inter text-sm text-green-600 cursor-pointer hover:underline'
+          onClick={handleEdit}
+          >
+            Edit
+          </p>
+          <p className='font-inter text-sm text-red-600 cursor-pointer hover:underline'
+          onClick={handleDelete}
+          >
+            Delete
+          </p>
+        </div>
+      )}
       <p className='font-inter text-sm blue-gradient cursor-pointer' onClick={()=>handleTagClick && handleTagClick(data.tag)}>{data.tag}</p>
 
     </div>
