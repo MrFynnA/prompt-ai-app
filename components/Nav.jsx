@@ -85,7 +85,7 @@ throw new Error('server error')
         <div className='sm:flex hidden'>
          {session?.user ?(
             <div className='flex gap-3 md:gap-5'>
-<button onClick={()=>router.push('/create-prompt')} className='black_btn'>
+<button onClick={()=>router.push('/create-prompt')} className='black_btn border-none outline-none'>
    Create Post
 </button>
 {/* <Link href='/create-prompt' onClick={request} className='black_btn'>

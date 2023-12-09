@@ -3,6 +3,8 @@ import '@/styles/globals.css'
 import Nav from '@components/Nav'
 import Provider from '@components/Provider'
 import GotoTop from '@components/GotoTop'
+import Footer from '@components/Footer'
+
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
@@ -13,7 +15,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
     return ( 
     <html lang = "en">
-      <body className='bg-gray-300'>
+      <body className={`!from-gray-200 !bg-neutral-400 !via-neutral-400 lg:pb-20`}>
         <Provider>
         <div className='main'>
         <div className='gradient'></div>
@@ -22,6 +24,7 @@ export default function RootLayout({ children }) {
             <Nav/>
              {children}
         </main>
+        <Footer/>
         </Provider>
         <GotoTop/>
       </body> 

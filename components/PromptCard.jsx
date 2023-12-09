@@ -23,7 +23,7 @@ const PromptCard = (props) => {
   }
     
   return (
-    <div className='prompt_card'>
+    <div className='prompt_card !bg-[#f9f9f9a0]'>
       <div className='flex justify-between items-start gap-5'>
         <div className='flex-1 flex justify-start items-center gap-3 cursor-pointer'>
          <Image
@@ -65,7 +65,7 @@ const PromptCard = (props) => {
           </p>
         </div>
       )}
-      <p className='font-inter text-sm blue-gradient cursor-pointer' onClick={()=>handleTagClick && handleTagClick(data.tag)}>{data.tag}</p>
+      <p className='font-inter text-sm blue-gradient cursor-pointer' onClick={()=>handleTagClick && handleTagClick(data.tag)}>#{data.tag}</p>
 
     </div>
   )

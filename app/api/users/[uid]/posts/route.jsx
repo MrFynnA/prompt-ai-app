@@ -3,18 +3,10 @@ import connectDB from "@utils/database"
 
 
 export const GET = async(req,query) => {
-    console.log('i was called')
     // const uid=params.uid
     // console.log(uid)
     const {params}=query
     const id=params.uid
-    if(id){
-      console.log(id)
-      console.log('i got the id')
-    }else{
-console.log('i didnt get the id')
-    }
-
       try{
         await connectDB()
 

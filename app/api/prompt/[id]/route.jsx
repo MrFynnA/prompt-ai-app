@@ -3,7 +3,6 @@ import connectDB from "@utils/database"
 
 export const GET = async(req,query) => {
     const{params}=query
-    console.log(params.id)
     try{
         await connectDB()
         
@@ -21,9 +20,7 @@ export const GET = async(req,query) => {
 //updating
 export const PATCH = async(req,query) => {
     const {prompt,tag}=await req.json()
-    console.log(prompt,tag)
     const{params}=query
-    console.log('tring to get tabe he one b')
     
     try{
         await connectDB()
@@ -47,13 +44,16 @@ export const PATCH = async(req,query) => {
 }
 //DELETE
 
-export async function DELETE(req,context){
-       const{params}=context
+export async function DELETE(req,query){
+    console.log('i triggered delete request')
+       const{params}=query
        const id=params.id
+       console.log(id + 'delete requestid')
 
        try{
         await connectDB();
-        await PromptModel.findByIdAndRemove(id)
+        // await PromptModel.findByIdAndRemove(id)
+        await PromptModel.deleteOne({_id:id})
         return new Response('Prompt deleted successful',{status:200})
        }catch(error){
         return new Response("Failed to delete prompt",{status:500})
