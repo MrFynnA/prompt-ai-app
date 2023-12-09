@@ -2,11 +2,11 @@ import PromptModel from "@models/promptmodel"
 import connectDB from "@utils/database"
 
 
-export const GET = async(req,context) => {
+export const GET = async(req,query) => {
     console.log('i was called')
     // const uid=params.uid
     // console.log(uid)
-    const {params}=context
+    const {params}=query
     const id=params.uid
     if(id){
       console.log(id)

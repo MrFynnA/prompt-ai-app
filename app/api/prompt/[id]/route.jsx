@@ -1,37 +1,44 @@
 import PromptModel from "@models/promptmodel"
 import connectDB from "@utils/database"
 
-export const GET = async(context) => {
-    const{params}=context
-      try{
+export const GET = async(req,query) => {
+    const{params}=query
+    console.log(params.id)
+    try{
         await connectDB()
-
-          const post=await PromptModel.findById(params.id).populate('creator')
-          if(!posts) return new Response(JSON.stringify({message:'prompt not found'},{status:404}));
-          return new Response(JSON.stringify(post),{status:200})  
-
-
-      }catch(error){
-     return new Response(JSON.stringify({message:'could not get posts'},{status:500}))
-      }
-
+        
+        const post=await PromptModel.findById(params.id).populate('creator')
+        if(!post) return new Response(JSON.stringify({message:'prompt not found'},{status:404}));
+        return new Response(JSON.stringify(post),{status:200})  
+        
+        
+    }catch(error){
+        return new Response(JSON.stringify({message:'could not get posts'},{status:500}))
+    }
+    
 }
 
 //updating
-export const PATCH = async(req,context) => {
+export const PATCH = async(req,query) => {
     const {prompt,tag}=await req.json()
-    const{params}=context
-
-      try{
+    console.log(prompt,tag)
+    const{params}=query
+    console.log('tring to get tabe he one b')
+    
+    try{
         await connectDB()
            
         const existingPrompt=await PromptModel.findById(params.id);
-        if(existingPrompt){
-            const post=await PromptModel.updateMany({_id:params.id},{$and:[{$set:{prompt:prompt}},{$set:{tag:tag}}]})
-            return new Response(JSON.stringify(post),{status:404})
-        }
+        // if(existingPrompt){
+        //     await PromptModel.updateMany({_id:params.id},{$set:{prompt:prompt,tag:tag}})
+        // }
+        if(!existingPrompt) return new Response({message:'prompt not found'},{status:404}); 
+        existingPrompt.prompt=prompt
+        existingPrompt.tag=tag
+        await existingPrompt.save()
+        return new Response(JSON.stringify(existingPrompt),{status:200})  
         //   if(!posts) return new Response({message:'prompt not found'},{status:404});
-        //   return new Response(JSON.stringify(post),{status:200})  
+        // return new Response(JSON.stringify(existingPrompt),{status:404})
 
       }catch(error){
      return new Response(JSON.stringify({message:'could not update post'}),{status:500})

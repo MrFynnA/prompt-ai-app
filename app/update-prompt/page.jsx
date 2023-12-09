@@ -8,9 +8,9 @@ import Form from "@components/Form"
 
 
 const EditPrompt=()=>{
-    const {register,formState:{errors},handleSubmit,watch,reset}=useForm()
     const [submitting,setSubmitting]=useState(false)
-    const [prompt,setPrompt]=useState([])
+    const [prompt,setPrompt]=useState()
+    const {register,formState:{errors},handleSubmit,watch,reset}=useForm()
     const searchParams=useSearchParams()
     const postId=searchParams.get('id')
     const router=useRouter()
@@ -27,40 +27,44 @@ console.log(prompt)
           if(postId) getPromptDetails()
   },[postId])
 
+  const updatePrompts=async(data)=>{
+    const promptPost={
+        prompt:data.prompt,
+        tag:data.tag
+      }
+      try{
+              const res=await fetch(`api/prompt/${postId}`,{
+                method:'PATCH',
+                body:JSON.stringify(promptPost),
+              })
+
+              if(res.ok){
+                router.push('/')
+              }
+      }catch(error){
+        console.log(error)
+      }finally{
+      setSubmitting(false)
+      }
+      console.log(data)
+    
+    
+  }
+
     return (
       <div className='w-full flex justify-center'>
       <div className='w-full'>
           <Form
            register={register} 
-           type='Create' 
-        //    sumbitHandler={handleSubmit(async(data)=>{
-        //     setSubmitting(true)
-        //     const promptPost={
-        //       prompt:data.prompt,
-        //       userId:session.user.id,
-        //       tag:data.tag
-        //     }
-        //     try{
-        //             const res=await fetch('api/prompt/new',{
-        //               method:'POST',
-        //               body:JSON.stringify(promptPost)
-        //             })
-  
-        //             if(res.ok){
-        //               router.push('/')
-        //             }
-        //     }catch(error){
-        //       console.log(error)
-        //     }finally{
-        //     setSubmitting(false)
-        //     }
-        //     console.log(data)
-        //     reset()
-        //   })} 
+           type='Edit' 
+           editData={prompt}
+           sumbitHandler={handleSubmit((data)=>{
+            setSubmitting(true)
+            updatePrompts(data)
+            reset()
+           })} 
            submitting={submitting}
            watch={watch}
-           fieldOneProp={'prompt'}
-           fieldTwoProp={'tag'}
            /> 
       </div>
       </div>

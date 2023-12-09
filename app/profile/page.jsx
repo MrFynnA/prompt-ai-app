@@ -38,7 +38,17 @@ const MyProfile = () => {
     
   }
   const handleDelete=async(promptId)=>{
+          const comfirmDelete=confirm('Are you sure you want to delete this prompt?')
+          if(comfirmDelete){
+            try{
+              await fetch(`api/prompt/${promptId}`,{
+                method:'DELETE'
+              })
 
+            }catch(error){
+              console.log(error.message)
+            }
+          }
   }
   return (
     <div className='w-full'>

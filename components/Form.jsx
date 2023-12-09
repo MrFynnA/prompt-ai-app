@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 
 const Form = (props) => {
-  const { register, type, sumbitHandler, submitting,fieldOneProp,fieldTwoProp}=props
+  const { register, type, sumbitHandler, submitting,fieldOneProp,fieldTwoProp,editData}=props
   return (
     <section  className='flex-start flex-col w-full max-w-full'>
       <h1 className='head_text text-left'><span className='blue_gradient'>{type} Post </span></h1>
@@ -19,9 +19,10 @@ const Form = (props) => {
           </span>
           <textarea
           // value={''}
-          {...register(fieldOneProp,{required:true})}
+          {...register('prompt',{required:true})}
           placeholder='write your prompts here...'
           className='form_textarea resize-none'
+          defaultValue={editData && editData.prompt}
 
           />
         </label>
@@ -32,9 +33,10 @@ const Form = (props) => {
           </span>
           <input
           // value={''}
-          {...register(fieldTwoProp,{required:true})}
+          {...register('tag',{required:true})}
           placeholder='#tag'
           className='form_input'
+          defaultValue={editData && editData.tag}
           />
         </label>
         <div className='flex-end mx-3 mb-5 gap-4'>
