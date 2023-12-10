@@ -22,7 +22,9 @@ export default function RootLayout({ children }) {
         </div>
         <main className='app'>
             <Nav/>
+            <div className='max-md:mt-[-2rem]'>
              {children}
+            </div>
         </main>
         <Footer/>
         </Provider>
