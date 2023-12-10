@@ -4,7 +4,7 @@ import Feed from "@components/Feed"
 export default function Home() {
     return ( 
     <section className="w-full flex-center flex-col">
-          <h1 className="head_text text-center">
+          <h1 className="head_text text-center max-md:!text-3xl">
             Discover & Share
             <br className="md:hidden"/>
             <span className="orange_gradient text-center  !to-gray-500"> AI-Powered Prompts</span>
