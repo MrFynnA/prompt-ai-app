@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import {signIn, signOut, useSession,getProviders} from 'next-auth/react'
 import { useRouter } from 'next/navigation';
+import { redirect } from 'next/navigation';
 
 
 
@@ -72,25 +73,28 @@ throw new Error('server error')
     <nav className='flex-between w-full mb-16 pt-3'>
         <Link href='/' className='flex gap-2 flex-center'>
             <Image
-            src='/assets/images/logo.svg'
+            src='/assets/images/sitelogo.png'
             alt="Promptos"
-            width={30}
-            height={30}
+            width={35}
+            height={35}
             className='object-contain'
             />
-            <p className='logo_text'>Promptos</p>
+            <p className='logo_text !font-inter'>Promptos</p>
         </Link>
         {/* Desktop Navigation */}
         <div className='sm:flex hidden'>
          {session?.user ?(
             <div className='flex gap-3 md:gap-5'>
-<button onClick={()=>router.push('/create-prompt')} className='black_btn'>
+<button onClick={()=>router.push('/create-prompt')} className='black_btn border-none outline-none'>
    Create Post
 </button>
 {/* <Link href='/create-prompt' onClick={request} className='black_btn'>
    Create Post
 </Link> */}
-<button type='button' onClick={()=>signOut({redirect:false})} className='outline_btn'>
+<button type='button' onClick={()=>{signOut({redirect:false})
+router.push('/')
+
+}} className='outline_btn'>
    Sign Out
 </button>
 <Link href='/profile'>

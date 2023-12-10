@@ -21,10 +21,10 @@ const handler=NextAuth({
     callbacks:{
         async session({session}){
             // console.log('i run')
-            const userSession=userModel.findOne({email:session.user.email})
+            const userSession= await userModel.findOne({email:session.user.email})
+            // console.log(userSession)
 
             session.user.id=userSession._id
-            console.log(session.user.id)
             return session
         }
        ,
