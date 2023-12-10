@@ -14,7 +14,7 @@ const EditPrompt=()=>{
     const searchParams=useSearchParams()
     const postId=searchParams.get('id')
     const router=useRouter()
-console.log(prompt)
+// console.log(prompt)
   useEffect(()=>{
           const getPromptDetails=async()=>{
             const res=await fetch(`/api/prompt/${postId}`)
@@ -46,7 +46,7 @@ console.log(prompt)
       }finally{
       setSubmitting(false)
       }
-      console.log(data)
+      // console.log(data)
     
     
   }
