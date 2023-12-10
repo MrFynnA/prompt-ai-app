@@ -8,7 +8,7 @@ import Footer from '@components/Footer'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-    title: 'promtos',
+    title: 'promptos',
     description: 'Discover and share AI prompts',
 }
 

@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import {signIn, signOut, useSession,getProviders} from 'next-auth/react'
 import { useRouter } from 'next/navigation';
+import GoogleIC from '@public/assets/icons/GoogleIC';
 import { redirect } from 'next/navigation';
 import { Fascinate_Inline } from 'next/font/google';
 
@@ -124,11 +125,13 @@ router.push('/')
             <> 
             
            {providers && Object.values(providers).map(providers=>(
-            <button key={providers.name} className='black_btn' type='button' onClick={()=>{
-               setProgress(true)
-               signIn(providers.id)
-            
-            }}>Sign In</button>
+            <div>
+               <div className='flex items-center gap-4'><GoogleIC/><button key={providers.name} className='black_btn' type='button' onClick={()=>{
+                  setProgress(true)
+                  signIn(providers.id)
+               
+               }}>Sign In</button></div>
+            </div>
            ))}
             </>
          )}
@@ -163,7 +166,7 @@ router.push('/')
           </div>
           ):    <> 
           {providers && Object.values(providers).map(providers=>(
-           <button key={providers.name} className='black_btn' type='button' onClick={()=>signIn(providers.id)}>Sign In</button>
+           <div className='flex items-center gap-3'><GoogleIC/><button key={providers.name} className='black_btn' type='button' onClick={()=>signIn(providers.id)}>Sign In</button></div>
           ))}
            </>
           
