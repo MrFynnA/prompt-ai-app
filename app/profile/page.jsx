@@ -10,11 +10,11 @@ const MyProfile = () => {
   const [posts,setPosts]=useState([])
   const router=useRouter()
   const{data:session}=useSession()
-  console.log(posts)
+  // console.log(posts)
 
   const fetchPrompts=async()=>{
   
-    console.log('i run in prompts')
+    // console.log('i run in prompts')
     try{
       const res= await fetch(`/api/users/${session?.user.id}/posts`)
       const data=await res.json()
@@ -50,11 +50,11 @@ const MyProfile = () => {
                 return updatedPosts
               })
               const data=await res.json()
-              console.log(data)
+              // console.log(data)
               // fetchPrompts()
 
             }catch(error){
-              console.log(error.message)
+              // console.log(error.message)
             }
           }
   }
@@ -62,7 +62,7 @@ const MyProfile = () => {
     <div className='w-full'>
       <Profile
        name='My'
-       desc='welcome to your personalized profile page'
+       desc='welcome to your personalized profile page '
        data={posts}  //array of our posts
        handleEdit={handleEdit}
        handleDelete={handleDelete}
