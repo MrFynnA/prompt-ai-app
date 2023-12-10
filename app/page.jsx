@@ -3,6 +3,7 @@ import Feed from "@components/Feed"
 
 export default function Home() {
     return ( 
+      <>
     <section className="w-full flex-center flex-col">
           <h1 className="head_text text-center max-md:!text-3xl">
             Discover & Share
@@ -14,6 +15,7 @@ export default function Home() {
           </p>
           <Feed/>
     </section>
+      </>
     )
     }
 

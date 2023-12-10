@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react'
 import {signIn, signOut, useSession,getProviders} from 'next-auth/react'
 import { useRouter } from 'next/navigation';
 import { redirect } from 'next/navigation';
+import { Fascinate_Inline } from 'next/font/google';
 
 
 
@@ -14,9 +15,11 @@ import { redirect } from 'next/navigation';
 const Nav = () => {
     const userLoggedIn=true
     const[providers,setproviders]=useState(null)
+    const[progress,setProgress]=useState(false)
     const{data:session}=useSession()
     const router=useRouter()
     const[toggleDropDown,settoggleDropDown]=useState(false)
+    const[countup,setCountUp]=useState(0)
     useEffect(()=>{
          const setProvider=async()=>{
             const providerResponse=await getProviders()
@@ -25,51 +28,61 @@ const Nav = () => {
          setProvider()
     },[])
 
+    useEffect(()=>{
+      setTimeout(()=>{
+         if(session?.user.image){
+                 return
+         }
+      },500)
+         const progressbar= setInterval(()=>{
+   
+               const lastStop=countup===100
+               const newstop=lastStop ? 0 :countup + 1
+               setCountUp(newstop)
+           },[5])
 
-  async function request(){
-   const user={
-      firstname:'nk daddr',
-      age:Math.random()
-   }
-   try{
-      const res =await fetch('/api/users',{
-        method:'POST',
-        body:JSON.stringify(user),
-        headers:{'content-type':'application/json'}
-     })
-const data=await res.json()
-     console.log(data)
-     if(!res.ok){
-throw new Error('server error')
-     }
-   }catch(error){
-      console.log(error.message)
-   }
-   // console.log(await res.json())
-  }
+           return ()=>clearInterval(progressbar)
+      // }
+    },[countup])
+
+
+//   async function request(){
+//    const user={
+//       firstname:'nk daddr',
+//       age:Math.random()
+//    }
+//    try{
+//       const res =await fetch('/api/users',{
+//         method:'POST',
+//         body:JSON.stringify(user),
+//         headers:{'content-type':'application/json'}
+//      })
+// const data=await res.json()
+//      console.log(data)
+//      if(!res.ok){
+// throw new Error('server error')
+//      }
+//    }catch(error){
+//       console.log(error.message)
+//    }
+  
+//   }
 
  
 
    useEffect(()=>{
-//   async function request(){
-//    const user={
-//       name:'fynn'
-//    }
-//     const res=await fetch('http://localhost:3001/api/users',{
-//       method:'GET',
-     
-//     })
-//     console.log(await res.json())
-//   }
+      if(session){
+         setProgress(false)
+      }
+
+   },[session])   
 
 
-//   request()
-   },[])   
-
-   // alert(session?.user.email)
-   // console.log(session?.user.email)
-   // console.log(session?.expires)
   return (
+   <>
+   {progress && <div class="w-full bg-gray-200 rounded-md  h-[0.4rem] mb-4 relative top-0 dark:bg-gray-700">
+  <div class=" from-gray-200 bg-orange-500 rounded-md h-[0.4rem]" style={{width:`${countup}%`}}></div>
+</div>}
     <nav className='flex-between w-full mb-16 pt-3'>
         <Link href='/' className='flex gap-2 flex-center'>
             <Image
@@ -111,7 +124,11 @@ router.push('/')
             <> 
             
            {providers && Object.values(providers).map(providers=>(
-            <button key={providers.name} className='black_btn' type='button' onClick={()=>signIn(providers.id)}>Sign In</button>
+            <button key={providers.name} className='black_btn' type='button' onClick={()=>{
+               setProgress(true)
+               signIn(providers.id)
+            
+            }}>Sign In</button>
            ))}
             </>
          )}
@@ -154,6 +171,7 @@ router.push('/')
         </div>
 
     </nav>
+   </>
   )
 }
 
