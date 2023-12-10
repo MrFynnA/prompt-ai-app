@@ -21,7 +21,7 @@ const Form = (props) => {
           // value={''}
           {...register('prompt',{required:true})}
           placeholder='write your prompts here...'
-          className='form_textarea resize-none'
+          className='form_textarea resize-none !text-lg'
           defaultValue={editData && editData.prompt}
 
           />
@@ -35,7 +35,7 @@ const Form = (props) => {
           // value={''}
           {...register('tag',{required:true})}
           placeholder='#tag'
-          className='form_input'
+          className='form_input !text-lg'
           defaultValue={editData && editData.tag}
           />
         </label>
