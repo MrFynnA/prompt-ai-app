@@ -5,7 +5,7 @@ const Form = (props) => {
   const { register, type, sumbitHandler, submitting,fieldOneProp,fieldTwoProp,editData}=props
   return (
     <section  className='flex-start flex-col w-full max-w-full'>
-      <h1 className='head_text text-left'><span className='blue_gradient'>{type} Post </span></h1>
+      <h1 className='head_text text-left'><span className='blue_gradient !from-orange-500 !to-neutral-700'>{type} Prompt </span></h1>
       <p className='desc text-left max-w-md'>
      {type} and share amazing prompts with the world
       </p>
