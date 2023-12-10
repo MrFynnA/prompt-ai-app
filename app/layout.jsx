@@ -15,14 +15,14 @@ export const metadata = {
 export default function RootLayout({ children }) {
     return ( 
     <html lang = "en">
-      <body className={`!from-gray-200 !bg-neutral-400 !via-neutral-400 lg:pb-20`}>
+      <body className={`!from-gray-200 !bg-neutral-400 !via-neutral-400`}>
         <Provider>
         <div className='main'>
         <div className='gradient'></div>
         </div>
         <main className='app'>
             <Nav/>
-            <div className='max-md:mt-[-2rem]'>
+            <div className='max-md:mt-[-2rem] w-full'>
              {children}
             </div>
         </main>
