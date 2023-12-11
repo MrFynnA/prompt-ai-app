@@ -82,9 +82,10 @@ const Nav = () => {
   return (
    <>
    {progress && <div class="w-full bg-gray-200 rounded-md  h-[0.4rem] mb-4 relative top-0 dark:bg-gray-700">
-  <div class=" from-gray-200 bg-orange-500 rounded-md h-[0.4rem]" style={{width:`${countup}%`}}></div>
+  <div class=" from-gray-200 bg-orange-500 rounded-md h-full" style={{width:`${countup}%`}}></div>
 </div>}
-    <nav className='flex-between w-full mb-16 pt-3'>
+<div className='flex justify-center items-center w-full relative md:bg-gray-800'>
+    <nav className='flex-between w-[75%] max-md:w-[90%] max-lg:w-[80%] mb-16 pt-3'>
         <Link href='/' className='flex gap-2 flex-center'>
             <Image
             src='/assets/images/sitelogo.png'
@@ -93,13 +94,13 @@ const Nav = () => {
             height={35}
             className='object-contain'
             />
-            <p className='logo_text !font-inter'>Promptos</p>
+            <p className='logo_text !font-inter md:text-white'>Promptos</p>
         </Link>
         {/* Desktop Navigation */}
         <div className='sm:flex hidden'>
          {session?.user ?(
             <div className='flex gap-3 md:gap-5'>
-<button onClick={()=>router.push('/create-prompt')} className='black_btn border-none outline-none'>
+<button onClick={()=>router.push('/create-prompt')} className='black_btn border-none outline-none shadow-md'>
    Create Post
 </button>
 {/* <Link href='/create-prompt' onClick={request} className='black_btn'>
@@ -108,7 +109,7 @@ const Nav = () => {
 <button type='button' onClick={()=>{signOut({redirect:false})
 router.push('/')
 
-}} className='outline_btn'>
+}} className='outline_btn md:!border-white hover:md:!border-black !text-white'>
    Sign Out
 </button>
 <Link href='/profile'>
@@ -126,7 +127,7 @@ router.push('/')
             
            {providers && Object.values(providers).map(providers=>(
             <div>
-               <div className='flex items-center gap-4'><GoogleIC/><button key={providers.name} className='black_btn' type='button' onClick={()=>{
+               <div className='flex items-center gap-4'><GoogleIC/><button key={providers.name} className='black_btn shadow-md' type='button' onClick={()=>{
                   setProgress(true)
                   signIn(providers.id)
                
@@ -174,6 +175,7 @@ router.push('/')
         </div>
 
     </nav>
+</div>
    </>
   )
 }

@@ -20,8 +20,8 @@ export default function RootLayout({ children }) {
         <div className='main'>
         <div className='gradient'></div>
         </div>
-        <main className='app w-full'>
             <Nav/>
+        <main className='app w-full'>
             <div className='max-md:mt-[-2rem] w-full'>
              {children}
             </div>
