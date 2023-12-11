@@ -17,7 +17,9 @@ const Feed = () => {
     
     try{
       setPromptsLoading(true)
-      const res= await fetch('/api/prompt')
+      const res= await fetch('/api/prompt',{
+        cache:'no-store'
+      })
       const data=await res.json()
       if(!res.ok){
         throw new Error('could not get posts')
