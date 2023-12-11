@@ -4,12 +4,14 @@ import {useEffect,useState} from 'react'
 import PromptCard from './PromptCard'
 import { useForm } from 'react-hook-form'
 import PromptcardList from './PromptcardList'
+import { usePathname } from 'next/navigation'
 
 const Feed = () => {
   const {register,handleSubmit,formState,reset}=useForm()
   const [posts,setPosts]=useState([])
   const [promptsloading,setPromptsLoading]=useState(false)
   const [refresh,setRefresh]=useState(false)
+  const pathName=usePathname()
   // console.log(posts)
   const fetchPrompts=async()=>{
     
@@ -29,7 +31,7 @@ const Feed = () => {
     
     
   }
-  const TriggerRefresh=()=>{
+  const triggerRefresh=()=>{
     setRefresh(true)
     fetchPrompts()
     setTimeout(()=>{
@@ -40,7 +42,7 @@ const Feed = () => {
     
      fetchPrompts()
   
-  },[])
+  },[pathName])
   return (
     <section className='feed'>
       <form className='relative w-full flex-center'>
@@ -49,7 +51,7 @@ const Feed = () => {
 
       <PromptcardList
       data={posts}
-      triggerRefresh={TriggerRefresh}
+      triggerRefresh={triggerRefresh}
       promptsloading={promptsloading}
       refresh={refresh}
       handleTagClick={()=>{}}
