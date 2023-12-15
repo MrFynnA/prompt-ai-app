@@ -149,7 +149,7 @@ router.push('/')
                   onClick={()=>settoggleDropDown(prev=>!prev)}
                   />
                   {toggleDropDown && (
-                     <div className='dropdown'>
+                     <div className='dropdown relative z-20'>
                         <Link href={'/profile'}
                         className='dropdown_link'
                         onClick={()=>settoggleDropDown(false)}
